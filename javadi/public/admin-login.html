@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ورود مدیر – JAVADI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-login-page">
+  <div class="admin-login-box">
+    <div class="admin-login-logo">JAVADI</div>
+    <div class="admin-login-subtitle">پنل مدیریت</div>
+
+    <h2 style="font-size:1rem;font-weight:400;color:var(--text-dim);margin-bottom:24px;line-height:1.7">
+      برای دسترسی به پنل مدیریت،<br>رمز عبور را وارد کنید
+    </h2>
+
+    <form id="adminLoginForm">
+      <input type="password" id="passwordInput" placeholder="••••••••"
+             autocomplete="current-password" autofocus>
+      <button type="submit" class="btn btn-warm btn-full" id="submitBtn" style="padding:15px">
+        🔐 ورود به پنل
+      </button>
+    </form>
+
+    <p class="form-error" id="loginError" style="text-align:center;margin-top:16px"></p>
+
+    <p style="text-align:center;margin-top:32px;color:var(--text-muted);font-size:0.85rem">
+      <a href="/" style="color:var(--text-dim);transition:color 0.2s">← بازگشت به سایت</a>
+    </p>
+  </div>
+</div>
+
+<script>
+async function initAdminLogin() {
+  // اگه قبلاً لاگین شده بود، مستقیم بره پنل
+  try {
+    const res = await fetch('/api/admin/check');
+    const data = await res.json();
+    if (data.isAdmin) {
+      window.location.href = '/javadi-control';
+      return;
+    }
+  } catch {}
+
+  document.getElementById('adminLoginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const errEl = document.getElementById('loginError');
+    const password = document.getElementById('passwordInput').value;
+
+    errEl.textContent = '';
+    btn.disabled = true;
+    btn.textContent = 'در حال بررسی...';
+
+    try {
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'رمز عبور اشتباه است');
+
+      window.location.href = '/javadi-control';
+    } catch (err) {
+      errEl.textContent = err.message;
+      btn.disabled = false;
+      btn.textContent = '🔐 ورود به پنل';
+      document.getElementById('passwordInput').select();
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', initAdminLogin);
+</script>
+</body>
+</html>

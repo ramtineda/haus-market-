@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔥 شگفت‌انگیزها – JAVADI</title>
+<meta name="description" content="تخفیف‌های ویژه JAVADI با فرصت محدود">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <!-- ==================== Deal Hero با عکس ==================== -->
+  <section class="deal-hero">
+    <div class="deal-hero-bg"></div>
+    <div class="container">
+      <div class="deal-hero-content">
+        <span class="deal-hero-eyebrow">⏰ فرصت محدود</span>
+        <h1 class="deal-hero-title">
+          پیشنهادهای <span class="highlight">شگفت‌انگیز</span>
+        </h1>
+        <p class="deal-hero-desc">
+          تخفیف‌های فوق‌العاده روی محصولات منتخب – قبل از اتمام زمان خرید کنید!
+        </p>
+
+        <div class="deal-hero-timer" id="heroTimer">
+          <div class="hero-timer-cell">
+            <div class="hero-timer-num" id="heroTimerDays">۰</div>
+            <div class="hero-timer-label">روز</div>
+          </div>
+          <div class="hero-timer-sep">:</div>
+          <div class="hero-timer-cell">
+            <div class="hero-timer-num" id="heroTimerHours">۰</div>
+            <div class="hero-timer-label">ساعت</div>
+          </div>
+          <div class="hero-timer-sep">:</div>
+          <div class="hero-timer-cell">
+            <div class="hero-timer-num" id="heroTimerMinutes">۰</div>
+            <div class="hero-timer-label">دقیقه</div>
+          </div>
+          <div class="hero-timer-sep">:</div>
+          <div class="hero-timer-cell">
+            <div class="hero-timer-num" id="heroTimerSeconds">۰</div>
+            <div class="hero-timer-label">ثانیه</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Deal Products ==================== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <span class="section-eyebrow">محصولات ویژه</span>
+          <h2 class="section-title">همه شگفت‌انگیزها</h2>
+          <p class="section-subtitle">تخفیف‌های فعال تا پایان زمان شمارش معکوس</p>
+        </div>
+      </div>
+      <div class="products-grid" id="dealGrid">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA Banner ==================== -->
+  <section class="container" style="padding-bottom:60px">
+    <div class="newsletter reveal" style="background:var(--gradient-warm)">
+      <h3>فرصت‌ها را از دست ندهید!</h3>
+      <p>هر هفته پیشنهادهای جدید اضافه می‌شود</p>
+      <a href="/products" class="btn" style="background:#fff;color:var(--orange);padding:14px 36px;border-radius:50px;font-weight:700;display:inline-flex;align-items:center;gap:10px;">
+        مشاهده همه محصولات
+        <span>←</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  /* ==================== Deal Hero ==================== */
+  .deal-hero {
+    position: relative;
+    padding: 180px 0 100px;
+    overflow: hidden;
+    background-color: #1a1d29;
+
+    /* عکس پس‌زمینه با overlay تیره */
+    background-image:
+      linear-gradient(rgba(26, 29, 41, 0.82), rgba(26, 29, 41, 0.92)),
+      url('https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  @media (max-width: 768px) {
+    .deal-hero {
+      background-attachment: scroll;
+      padding: 140px 0 70px;
+    }
+  }
+
+  /* گرادیانت‌های رنگی روی عکس */
+  .deal-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255, 140, 66, 0.35), transparent 55%),
+      radial-gradient(circle at 80% 70%, rgba(255, 107, 157, 0.3), transparent 55%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .deal-hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to top, var(--bg), transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .deal-hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .deal-hero-eyebrow {
+    display: inline-block;
+    background: var(--gradient-warm);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(255, 140, 66, 0.45);
+    animation: pulse 2s ease infinite;
+  }
+
+  .deal-hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 200;
+    color: #fff;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+
+  .deal-hero-title .highlight {
+    background: linear-gradient(135deg, #ffd700 0%, #ff8c42 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+  }
+
+  .deal-hero-desc {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+  }
+
+  /* ==================== Big Timer ==================== */
+  .deal-hero-timer {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    padding: 20px 28px;
+    border-radius: var(--radius-xl);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .deal-hero-timer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-warm);
+  }
+
+  .hero-timer-cell {
+    text-align: center;
+    min-width: 72px;
+    padding: 0 12px;
+  }
+
+  .hero-timer-num {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    background: linear-gradient(135deg, #ffd700 0%, #ff8c42 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -1px;
+  }
+
+  .hero-timer-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.85);
+    margin-top: 6px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .hero-timer-sep {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+    padding-bottom: 22px;
+  }
+
+  @media (max-width: 640px) {
+    .deal-hero { padding: 120px 0 60px; }
+    .deal-hero-timer { padding: 14px 16px; gap: 4px; }
+    .hero-timer-cell { min-width: 54px; padding: 0 6px; }
+    .hero-timer-sep { font-size: 1.5rem; padding-bottom: 20px; }
+    .hero-timer-label { font-size: 0.65rem; }
+    .deal-hero-title { font-size: 1.85rem; }
+    .deal-hero-desc { font-size: 0.92rem; }
+  }
+
+  /* ==================== Bump Animation ==================== */
+  @keyframes bump {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  .timer-bump {
+    animation: bump 0.5s ease;
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/deal.js"></script>
+</body>
+</html>

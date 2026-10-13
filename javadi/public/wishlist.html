@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>علاقه‌مندی‌ها – JAVADI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">صفحه اصلی</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="current">علاقه‌مندی‌ها</span>
+      </div>
+      <h1>❤️ علاقه‌مندی‌های من</h1>
+      <p>محصولاتی که نشان کرده‌اید</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div id="wishlistContent">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<script src="/js/app.js"></script>
+<script>
+function renderProductCard(p) {
+  const img = p.image || 'https://via.placeholder.com/400x400/e8e1d5/a5abb7?text=JAVADI';
+  const hasDiscount = p.old_price && p.old_price > p.price;
+  const outOfStock = p.stock === 0;
+
+  return `
+    <div class="product-card reveal" data-wishlist-id="${p.product_id}">
+      <div class="product-image-wrap">
+        ${hasDiscount && !outOfStock ? `<span class="product-badge sale">تخفیف</span>` : ''}
+        ${outOfStock ? `<span class="product-badge out">ناموجود</span>` : ''}
+        <a href="/product/${esc(p.slug)}">
+          <img src="${esc(img)}" alt="${esc(p.name)}" loading="lazy"
+               onerror="this.src='https://via.placeholder.com/400x400/e8e1d5/a5abb7?text=JAVADI'">
+        </a>
+        <div class="product-actions">
+          <button class="product-action-btn active"
+                  onclick="event.preventDefault();removeFromWishlist(${p.product_id}, this)"
+                  title="حذف از علاقه‌مندی">✕</button>
+        </div>
+      </div>
+      <div class="product-info">
+        ${p.brand_name ? `<div class="product-brand">${esc(p.brand_name)}</div>` : ''}
+        <a href="/product/${esc(p.slug)}">
+          <h3 class="product-title">${esc(p.name)}</h3>
+        </a>
+        <div class="product-price-row">
+          <div class="product-price-wrap">
+            <span class="product-price">${fmtPrice(p.price)}</span>
+            ${hasDiscount ? `<span class="product-old-price">${fmtPrice(p.old_price)}</span>` : ''}
+          </div>
+          ${!outOfStock ? `
+            <button class="product-add-btn"
+                    onclick='event.preventDefault();JV.addToCart(${JSON.stringify({
+                      id: p.product_id, name: p.name, price: p.price, old_price: p.old_price,
+                      image: p.image, slug: p.slug
+                    }).replace(/'/g, "&#39;")})'
+                    title="افزودن به سبد">
+              <span class="icon">🛍</span>
+              <span class="text">افزودن</span>
+            </button>
+          ` : `
+            <button class="product-add-btn disabled" disabled>
+              <span class="text">ناموجود</span>
+            </button>
+          `}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function removeFromWishlist(productId, btn) {
+  try {
+    const res = await fetch('/api/wishlist/toggle', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ product_id: productId }),
+    });
+    if (res.ok) {
+      showToast('از علاقه‌مندی‌ها حذف شد', 'info');
+      const card = btn.closest('.product-card');
+      card.style.transition = 'opacity 0.3s, transform 0.3s';
+      card.style.opacity = '0';
+      card.style.transform = 'scale(0.9)';
+      setTimeout(async () => {
+        card.remove();
+        await JV.loadWishlistIds();
+        if (!document.querySelectorAll('.product-card').length) {
+          loadWishlist();
+        }
+      }, 300);
+    }
+  } catch {
+    showToast('خطا در برقراری ارتباط', 'error');
+  }
+}
+
+async function loadWishlist() {
+  const wrap = document.getElementById('wishlistContent');
+
+  try {
+    const res = await fetch('/api/wishlist');
+    if (res.status === 401) {
+      window.location.href = '/login?next=/wishlist';
+      return;
+    }
+    const items = await res.json();
+
+    if (!items.length) {
+      wrap.innerHTML = `
+        <div class="empty-orders">
+          <span class="empty-orders-icon">❤️</span>
+          <h2>لیست علاقه‌مندی‌های شما خالی است</h2>
+          <p>محصولاتی که به آن‌ها علاقه دارید را اینجا ذخیره کنید</p>
+          <a href="/products" class="btn btn-warm btn-large">مشاهده محصولات</a>
+        </div>
+      `;
+      return;
+    }
+
+    wrap.innerHTML = `<div class="products-grid">${items.map(renderProductCard).join('')}</div>`;
+    setupReveal();
+  } catch {
+    wrap.innerHTML = '<p class="loading">خطا در بارگذاری.</p>';
+  }
+}
+
+async function initWishlist() {
+  await new Promise(resolve => {
+    const check = setInterval(() => {
+      if (window.JV.settings && window.JV.settings.site_name) {
+        clearInterval(check); resolve();
+      }
+    }, 50);
+  });
+  await loadWishlist();
+}
+
+window.addEventListener('DOMContentLoaded', initWishlist);
+</script>
+</body>
+</html>

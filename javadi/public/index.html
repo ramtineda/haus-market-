@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAVADI – لوازم خانگی لوکس</title>
+<meta name="description" content="فروشگاه تخصصی لوازم خانگی و آشپزخانه با بهترین برندهای جهان – JAVADI">
+<meta name="keywords" content="لوازم خانگی، لوازم آشپزخانه، خرید آنلاین، JAVADI">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="JAVADI – لوازم خانگی لوکس">
+<meta property="og:description" content="فروشگاه تخصصی لوازم خانگی و آشپزخانه">
+<meta property="og:image" content="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1200">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+
+  <!-- ==================== Hero Slider ==================== -->
+  <section class="hero" id="hero">
+    <div class="hero-slider" id="heroSlider">
+      <div style="display:flex;align-items:center;justify-content:center;height:100%">
+        <div class="spinner"></div>
+      </div>
+    </div>
+
+    <div class="hero-controls">
+      <div class="hero-dots" id="heroDots"></div>
+      <div class="hero-arrows">
+        <button class="hero-arrow" id="heroPrev" aria-label="قبلی">‹</button>
+        <button class="hero-arrow" id="heroNext" aria-label="بعدی">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== نوار جستجو ==================== -->
+  <section class="hero-search-bar">
+    <div class="container">
+      <div class="hero-search-box" onclick="LiveSearch.open()">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="جستجو در محصولات..." readonly style="cursor:pointer">
+        <span class="search-shortcut">
+          <kbd>Ctrl</kbd>+<kbd>K</kbd>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Marquee ==================== -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="marquee-item">ارسال رایگان بالای ۵ میلیون تومان</span>
+      <span class="marquee-item">ضمانت اصالت کالا</span>
+      <span class="marquee-item">۷ روز ضمانت بازگشت</span>
+      <span class="marquee-item">پشتیبانی ۲۴ ساعته</span>
+      <span class="marquee-item">پرداخت امن با زرین‌پال</span>
+      <span class="marquee-item">ارسال سریع به سراسر کشور</span>
+      <span class="marquee-item">ارسال رایگان بالای ۵ میلیون تومان</span>
+      <span class="marquee-item">ضمانت اصالت کالا</span>
+      <span class="marquee-item">۷ روز ضمانت بازگشت</span>
+      <span class="marquee-item">پشتیبانی ۲۴ ساعته</span>
+    </div>
+  </div>
+
+  <!-- ==================== Deal / شگفت‌انگیز ==================== -->
+  <section class="container" style="padding-top:60px">
+    <div class="deal-section" id="dealSection" style="display:none">
+      <div class="deal-header">
+        <div class="deal-title-wrap">
+          <h2>🔥 پیشنهاد شگفت‌انگیز</h2>
+          <p>فرصت محدود – همین حالا خرید کنید!</p>
+        </div>
+        <div class="deal-timer" id="dealTimer">
+          <div class="timer-cell">
+            <div class="timer-num" id="timerDays">۰</div>
+            <div class="timer-label">روز</div>
+          </div>
+          <div class="timer-sep">:</div>
+          <div class="timer-cell">
+            <div class="timer-num" id="timerHours">۰</div>
+            <div class="timer-label">ساعت</div>
+          </div>
+          <div class="timer-sep">:</div>
+          <div class="timer-cell">
+            <div class="timer-num" id="timerMinutes">۰</div>
+            <div class="timer-label">دقیقه</div>
+          </div>
+          <div class="timer-sep">:</div>
+          <div class="timer-cell">
+            <div class="timer-num" id="timerSeconds">۰</div>
+            <div class="timer-label">ثانیه</div>
+          </div>
+        </div>
+      </div>
+      <div class="deal-products" id="dealProducts">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Categories ==================== -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <span class="section-eyebrow">دسته‌بندی‌ها</span>
+          <h2 class="section-title">خرید بر اساس دسته</h2>
+          <p class="section-subtitle">محصولات متنوع برای هر نیاز آشپزخانه و خانه شما</p>
+        </div>
+        <a href="/products" class="section-header-link">
+          مشاهده همه
+          <span>←</span>
+        </a>
+      </div>
+      <div class="categories-scroll" id="categoriesScroll">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Brands ==================== -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="section-header" style="justify-content:center;text-align:center">
+        <div class="section-header-left" style="text-align:center">
+          <span class="section-eyebrow">برندها</span>
+          <h2 class="section-title">برندهای معتبر جهانی</h2>
+          <p class="section-subtitle">با بهترین برندهای جهان همکاری می‌کنیم</p>
+        </div>
+      </div>
+      <div class="brands-scroll" id="brandsScroll">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Newest Products ==================== -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <span class="section-eyebrow">جدیدترین</span>
+          <h2 class="section-title">جدیدترین محصولات</h2>
+          <p class="section-subtitle">تازه‌ترین محصولات اضافه‌شده به فروشگاه</p>
+        </div>
+        <a href="/products?sort=newest" class="section-header-link">
+          مشاهده همه
+          <span>←</span>
+        </a>
+      </div>
+      <div class="products-grid" id="newGrid">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Best Sellers ==================== -->
+  <section class="section" style="padding-top:0;padding-bottom:80px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left">
+          <span class="section-eyebrow">پرفروش‌ها</span>
+          <h2 class="section-title">پرفروش‌ترین محصولات</h2>
+          <p class="section-subtitle">محبوب‌ترین‌های مشتریان ما</p>
+        </div>
+        <a href="/products?sort=popular" class="section-header-link">
+          مشاهده همه
+          <span>←</span>
+        </a>
+      </div>
+      <div class="products-grid" id="popularGrid">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="footerSlot"></div>
+
+<script src="/js/app.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

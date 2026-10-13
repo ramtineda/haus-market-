@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>گفتگو با پشتیبانی – JAVADI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">صفحه اصلی</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="current">گفتگو با پشتیبانی</span>
+      </div>
+      <h1>💬 گفتگو با پشتیبانی</h1>
+      <p>سوالات خود را از تیم پشتیبانی بپرسید</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div class="chat-layout">
+        <!-- Sidebar اطلاعات -->
+        <aside class="chat-info-side">
+          <div class="chat-info-card">
+            <div class="chat-info-icon">💬</div>
+            <h3>پشتیبانی آنلاین JAVADI</h3>
+            <p>تیم ما آماده پاسخگویی به سوالات شماست. پاسخ معمولاً در کمتر از ۵ دقیقه داده می‌شود.</p>
+          </div>
+
+          <div class="chat-info-features">
+            <div class="chat-feature">
+              <span class="ico">⚡</span>
+              <div>
+                <strong>پاسخ سریع</strong>
+                <small>معمولاً کمتر از ۵ دقیقه</small>
+              </div>
+            </div>
+            <div class="chat-feature">
+              <span class="ico">🕐</span>
+              <div>
+                <strong>ساعت کاری</strong>
+                <small>شنبه تا پنجشنبه ۹ تا ۲۱</small>
+              </div>
+            </div>
+            <div class="chat-feature">
+              <span class="ico">📞</span>
+              <div>
+                <strong>تماس مستقیم</strong>
+                <small id="chatPhone">—</small>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- پنجره چت -->
+        <div class="chat-window">
+          <div class="chat-window-header">
+            <div class="chat-user-info">
+              <div class="chat-avatar">J</div>
+              <div>
+                <div class="chat-user-name">پشتیبانی JAVADI</div>
+                <div class="chat-user-status">
+                  <span class="online-dot"></span>
+                  <span id="chatStatus">آنلاین</span>
+                </div>
+              </div>
+            </div>
+            <button class="chat-clear-btn" onclick="clearChatHistory()" title="پاک کردن تاریخچه">🗑</button>
+          </div>
+
+          <div class="chat-messages" id="chatMessages">
+            <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+          </div>
+
+          <div class="chat-input-wrap">
+            <form class="chat-input-form" id="chatForm">
+              <input type="text" id="chatInput" placeholder="پیام خود را بنویسید..." autocomplete="off" maxlength="1000">
+              <button type="submit" id="chatSendBtn" aria-label="ارسال">
+                <span>←</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  .chat-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .chat-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ==================== Info Sidebar ==================== */
+  .chat-info-side {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .chat-info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chat-info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-gold);
+  }
+
+  .chat-info-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    color: var(--accent);
+  }
+
+  .chat-info-card h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .chat-info-card p {
+    color: var(--text-mid);
+    font-size: 0.88rem;
+    line-height: 1.8;
+  }
+
+  .chat-info-features {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .chat-feature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: var(--radius);
+    transition: background var(--t-fast) var(--ease);
+  }
+
+  .chat-feature:hover { background: var(--accent-glow); }
+
+  .chat-feature .ico {
+    font-size: 1.35rem;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .chat-feature strong {
+    color: var(--text);
+    font-size: 0.88rem;
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 600;
+  }
+
+  .chat-feature small {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  /* ==================== Chat Window ==================== */
+  .chat-window {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 220px);
+    min-height: 500px;
+    box-shadow: var(--shadow);
+  }
+
+  @media (max-width: 900px) {
+    .chat-window { height: calc(100vh - 180px); min-height: 450px; }
+  }
+
+  .chat-window-header {
+    padding: 16px 22px;
+    background: var(--bg-3);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .chat-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .chat-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gradient-gold);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(201, 150, 62, 0.3);
+  }
+
+  .chat-user-name {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .chat-user-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    margin-top: 2px;
+  }
+
+  .online-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--success);
+    border-radius: 50%;
+    animation: pulse 1.8s ease infinite;
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+
+  .chat-clear-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    color: var(--text-dim);
+    font-size: 1rem;
+    transition: all var(--t-fast) var(--ease);
+  }
+
+  .chat-clear-btn:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+  }
+
+  /* ==================== Messages ==================== */
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: var(--bg-2);
+    background-image: radial-gradient(circle at 20% 20%, var(--accent-glow), transparent 60%);
+  }
+
+  .chat-messages::-webkit-scrollbar { width: 8px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 8px; }
+
+  .chat-msg {
+    max-width: 75%;
+    padding: 12px 18px;
+    border-radius: 18px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    position: relative;
+    animation: fadeInUp 0.3s var(--ease);
+    word-wrap: break-word;
+  }
+
+  .chat-msg.user {
+    background: var(--gradient-gold);
+    color: #fff;
+    align-self: flex-end;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 4px 12px rgba(201, 150, 62, 0.25);
+  }
+
+  .chat-msg.admin {
+    background: var(--bg-card);
+    color: var(--text);
+    align-self: flex-start;
+    border-bottom-right-radius: 4px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .chat-msg .time {
+    font-size: 0.68rem;
+    opacity: 0.75;
+    margin-top: 6px;
+    display: block;
+    text-align: left;
+  }
+
+  .chat-msg.user .time { color: rgba(255,255,255,0.85); }
+  .chat-msg.admin .time { color: var(--text-muted); }
+
+  .chat-welcome {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .chat-welcome-icon {
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 16px;
+    opacity: 0.7;
+  }
+
+  .chat-welcome h4 {
+    color: var(--text);
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .chat-welcome p {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .chat-suggestions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .chat-suggestion {
+    padding: 8px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    color: var(--text-mid);
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all var(--t-fast) var(--ease);
+    font-family: inherit;
+  }
+
+  .chat-suggestion:hover {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* ==================== Input ==================== */
+  .chat-input-wrap {
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-card);
+  }
+
+  .chat-input-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .chat-input-form input {
+    flex: 1;
+    padding: 13px 20px;
+    background: var(--bg-3);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    border-radius: 50px;
+    font-size: 0.92rem;
+    font-family: inherit;
+    outline: none;
+    transition: all var(--t-fast) var(--ease);
+  }
+
+  .chat-input-form input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+    background: var(--bg-card);
+  }
+
+  .chat-input-form button {
+    width: 48px;
+    height: 48px;
+    background: var(--gradient-warm);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all var(--t-fast) var(--ease);
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
+  }
+
+  .chat-input-form button:hover:not(:disabled) {
+    transform: scale(1.1) rotate(-15deg);
+    box-shadow: 0 6px 20px rgba(255, 140, 66, 0.5);
+  }
+
+  .chat-input-form button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script src="/js/chat.js"></script>
+</body>
+</html>

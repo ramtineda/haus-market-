@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تکمیل خرید – JAVADI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">صفحه اصلی</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/cart">سبد خرید</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="current">تکمیل خرید</span>
+      </div>
+      <h1>تکمیل خرید</h1>
+      <p>اطلاعات ارسال خود را وارد کنید</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div id="checkoutContent">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  .checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .checkout-layout { grid-template-columns: 1fr; }
+  }
+
+  .checkout-form-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 640px) {
+    .checkout-form-box { padding: 22px 18px; }
+  }
+
+  .checkout-section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .checkout-section-title .step-num {
+    width: 30px;
+    height: 30px;
+    background: var(--gradient-gold);
+    color: #fff;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(201, 150, 62, 0.3);
+  }
+
+  .checkout-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .checkout-form-grid .form-group.full {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 640px) {
+    .checkout-form-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ==================== Summary ==================== */
+  .checkout-summary {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+    position: sticky;
+    top: 100px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .checkout-summary h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .checkout-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 340px;
+    overflow-y: auto;
+    padding-left: 4px;
+    margin-bottom: 20px;
+  }
+
+  .checkout-items::-webkit-scrollbar { width: 6px; }
+  .checkout-items::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 6px; }
+
+  .checkout-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 0.85rem;
+  }
+
+  .checkout-item-img {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-3);
+    flex-shrink: 0;
+    position: relative;
+  }
+
+  .checkout-item-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .checkout-item-qty {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--gradient-warm);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    box-shadow: 0 4px 12px rgba(255, 140, 66, 0.4);
+  }
+
+  .checkout-item-info { flex: 1; min-width: 0; }
+
+  .checkout-item-info .name {
+    color: var(--text);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.88rem;
+  }
+
+  .checkout-item-info .unit {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+    margin-top: 3px;
+  }
+
+  .checkout-item-price {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  .checkout-totals {
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .checkout-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+  }
+
+  .checkout-total-row .value { color: var(--text); font-weight: 600; }
+
+  .checkout-total-row.discount { color: var(--success); }
+  .checkout-total-row.discount .value { color: var(--success); }
+
+  .checkout-total-row.grand {
+    padding-top: 16px;
+    margin-top: 12px;
+    border-top: 2px solid var(--border);
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .checkout-total-row.grand .value {
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .checkout-submit {
+    width: 100%;
+    margin-top: 22px;
+    padding: 17px;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .checkout-note {
+    margin-top: 16px;
+    padding: 14px;
+    background: var(--accent-glow);
+    border: 1px solid rgba(201, 150, 62, 0.2);
+    border-radius: var(--radius);
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .checkout-note .ico {
+    color: var(--accent);
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/checkout.js"></script>
+</body>
+</html>

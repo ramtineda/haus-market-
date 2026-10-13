@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ثبت‌نام – JAVADI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <section class="auth-section" style="padding-top:130px;padding-bottom:80px">
+    <div class="auth-box" style="max-width:560px">
+      <div class="auth-header">
+        <div class="auth-icon">✦</div>
+        <h1 class="auth-title">ساخت حساب جدید</h1>
+        <p class="auth-subtitle">به خانواده JAVADI خوش آمدید</p>
+      </div>
+
+      <form id="registerForm" autocomplete="on">
+        <div class="form-group">
+          <label class="form-label" for="full_name">نام و نام خانوادگی <span class="required">*</span></label>
+          <input type="text" class="form-input" id="full_name" name="full_name"
+                 placeholder="مثلاً علی رضایی" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">ایمیل <span class="required">*</span></label>
+          <input type="email" class="form-input" id="email" name="email"
+                 placeholder="example@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="phone">تلفن همراه</label>
+          <input type="tel" class="form-input" id="phone" name="phone"
+                 placeholder="۰۹۱۲۳۴۵۶۷۸۹">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">رمز عبور <span class="required">*</span></label>
+          <div class="password-wrap">
+            <input type="password" class="form-input" id="password" name="password"
+                   placeholder="حداقل ۶ کاراکتر" required minlength="6">
+            <button type="button" class="password-toggle" onclick="togglePassword('password', this)">👁</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password2">تکرار رمز عبور <span class="required">*</span></label>
+          <div class="password-wrap">
+            <input type="password" class="form-input" id="password2" name="password2"
+                   placeholder="رمز عبور را دوباره وارد کنید" required minlength="6">
+            <button type="button" class="password-toggle" onclick="togglePassword('password2', this)">👁</button>
+          </div>
+        </div>
+
+        <p class="form-error" id="registerError"></p>
+
+        <button type="submit" class="btn btn-warm btn-full" id="submitBtn" style="padding:15px">
+          ثبت‌نام
+        </button>
+
+        <div class="auth-divider">
+          <span>قبلاً ثبت‌نام کرده‌اید؟</span>
+        </div>
+
+        <a href="/login" class="btn btn-outline btn-full" style="padding:14px">
+          ورود به حساب
+        </a>
+      </form>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  .auth-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      radial-gradient(circle at 20% 20%, var(--accent-glow), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(124, 140, 248, 0.06), transparent 50%),
+      var(--bg);
+  }
+
+  .auth-box {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 48px 40px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .auth-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-cool);
+  }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 32px 22px; }
+  }
+
+  .auth-header { text-align: center; margin-bottom: 32px; }
+
+  .auth-icon {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(124, 140, 248, 0.15), rgba(62, 181, 168, 0.15));
+    color: var(--purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.85rem;
+    border: 2px solid rgba(124, 140, 248, 0.2);
+    position: relative;
+  }
+
+  .auth-icon::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px dashed var(--purple);
+    opacity: 0.25;
+    animation: rotateSlow 20s linear infinite;
+  }
+
+  .auth-title {
+    font-size: 1.55rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .auth-subtitle { color: var(--text-dim); font-size: 0.9rem; }
+
+  .password-wrap { position: relative; }
+  .password-wrap .form-input { padding-left: 48px; }
+
+  .password-toggle {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    font-size: 1rem;
+    padding: 6px;
+    border-radius: 4px;
+  }
+
+  .password-toggle:hover { color: var(--accent); }
+
+  .auth-divider {
+    position: relative;
+    text-align: center;
+    margin: 24px 0 16px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  .auth-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .auth-divider span {
+    position: relative;
+    z-index: 1;
+    background: var(--bg-card);
+    padding: 0 12px;
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script>
+function togglePassword(id, btn) {
+  const input = document.getElementById(id);
+  const type = input.type === 'password' ? 'text' : 'password';
+  input.type = type;
+  btn.textContent = type === 'password' ? '👁' : '🙈';
+}
+
+async function initRegister() {
+  await new Promise(resolve => {
+    const check = setInterval(() => {
+      if (window.JV.settings && window.JV.settings.site_name) {
+        clearInterval(check); resolve();
+      }
+    }, 50);
+  });
+
+  try {
+    const res = await fetch('/api/auth/me');
+    const data = await res.json();
+    if (data.loggedIn) { window.location.href = '/'; return; }
+  } catch {}
+
+  document.getElementById('registerForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const errEl = document.getElementById('registerError');
+    errEl.textContent = '';
+
+    const full_name = document.getElementById('full_name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value;
+    const password2 = document.getElementById('password2').value;
+
+    if (password !== password2) {
+      errEl.textContent = 'رمز عبور و تکرار آن یکسان نیستند';
+      return;
+    }
+    if (password.length < 6) {
+      errEl.textContent = 'رمز عبور باید حداقل ۶ کاراکتر باشد';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'در حال ثبت‌نام...';
+
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ full_name, email, phone, password }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'خطا در ثبت‌نام');
+
+      showToast(`🎉 حساب شما ساخته شد، ${full_name}!`, 'success');
+      celebrate();
+      setTimeout(() => window.location.href = '/', 900);
+    } catch (err) {
+      errEl.textContent = err.message;
+      btn.disabled = false;
+      btn.textContent = 'ثبت‌نام';
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', initRegister);
+</script>
+</body>
+</html>

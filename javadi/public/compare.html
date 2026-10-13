@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مقایسه محصولات – JAVADI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">صفحه اصلی</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="current">مقایسه محصولات</span>
+      </div>
+      <h1>⚖ مقایسه محصولات</h1>
+      <p>محصولات انتخابی خود را کنار هم مقایسه کنید</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div id="compareContent">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  /* ==================== Compare Empty ==================== */
+  .compare-empty {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .compare-empty-icon {
+    font-size: 4rem;
+    opacity: 0.3;
+    margin-bottom: 20px;
+  }
+
+  .compare-empty h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .compare-empty p {
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    font-size: 0.95rem;
+  }
+
+  /* ==================== Compare Header ==================== */
+  .compare-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .compare-count {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+  }
+
+  .compare-count strong {
+    color: var(--accent);
+    font-size: 1.1rem;
+  }
+
+  /* ==================== Compare Table ==================== */
+  .compare-table-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow-x: auto;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px;
+  }
+
+  .compare-table th,
+  .compare-table td {
+    padding: 20px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .compare-table th {
+    background: var(--bg-3);
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--border-2);
+    white-space: nowrap;
+    width: 180px;
+  }
+
+  .compare-table td {
+    color: var(--text-mid);
+    font-size: 0.92rem;
+    min-width: 240px;
+  }
+
+  .compare-table tr:last-child td,
+  .compare-table tr:last-child th {
+    border-bottom: none;
+  }
+
+  .compare-table tr:hover td {
+    background: var(--accent-glow);
+  }
+
+  /* ==================== Product Header Cell ==================== */
+  .compare-product-header {
+    text-align: center;
+    position: relative;
+    padding: 24px 20px !important;
+  }
+
+  .compare-product-header .remove-btn {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 32px;
+    height: 32px;
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--t-fast) var(--ease);
+    border: none;
+  }
+
+  .compare-product-header .remove-btn:hover {
+    background: var(--danger);
+    color: #fff;
+    transform: rotate(90deg);
+  }
+
+  .compare-product-header img {
+    width: 130px;
+    height: 130px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    margin: 0 auto 16px;
+    background: var(--bg-3);
+    display: block;
+  }
+
+  .compare-product-header a {
+    display: block;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    transition: color var(--t-fast) var(--ease);
+  }
+
+  .compare-product-header a:hover { color: var(--accent); }
+
+  .compare-product-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .compare-product-old-price {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }
+
+  /* ==================== Cell Content ==================== */
+  .compare-cell-stock {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+
+  .compare-cell-stock.in {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+  }
+
+  .compare-cell-stock.out {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+  }
+
+  [data-theme="dark"] .compare-cell-stock.in { color: #4ade80; }
+  [data-theme="dark"] .compare-cell-stock.out { color: #f87171; }
+
+  .compare-cell-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-left: 4px;
+  }
+
+  .badge-new {
+    background: rgba(124, 140, 248, 0.15);
+    color: var(--purple);
+  }
+
+  .badge-sale {
+    background: rgba(255, 140, 66, 0.15);
+    color: var(--orange);
+  }
+
+  .badge-deal {
+    background: rgba(255, 107, 157, 0.15);
+    color: var(--pink);
+  }
+
+  /* ==================== Add More Prompt ==================== */
+  .compare-add-more {
+    margin-top: 30px;
+    padding: 30px;
+    border: 2px dashed var(--border-2);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    background: var(--bg-2);
+  }
+
+  .compare-add-more .icon {
+    font-size: 2.5rem;
+    opacity: 0.5;
+    margin-bottom: 12px;
+  }
+
+  .compare-add-more p {
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+  }
+
+  .compare-add-more strong {
+    color: var(--accent);
+  }
+
+  /* ==================== CTA في Product ==================== */
+  .compare-cta-bar {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    gap: 16px;
+    flex-wrap: wrap;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .compare-cta-bar .text {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+  }
+
+  .compare-cta-bar .text strong {
+    color: var(--accent);
+  }
+
+  /* موبایل */
+  @media (max-width: 768px) {
+    .compare-table th { padding: 14px 10px; font-size: 0.75rem; width: 110px; }
+    .compare-table td { padding: 14px 12px; font-size: 0.85rem; min-width: 160px; }
+    .compare-product-header img { width: 90px; height: 90px; }
+    .compare-product-header a { font-size: 0.85rem; }
+    .compare-product-price { font-size: 0.95rem; }
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/compare.js"></script>
+</body>
+</html>

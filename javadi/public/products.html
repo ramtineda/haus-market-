@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>همه محصولات – JAVADI</title>
+<meta name="description" content="مشاهده همه محصولات لوازم خانگی و آشپزخانه JAVADI">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">صفحه اصلی</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="current" id="breadcrumbCurrent">همه محصولات</span>
+      </div>
+      <h1 id="pageTitle">همه محصولات</h1>
+      <p id="pageSubtitle">مجموعه کامل لوازم خانگی و آشپزخانه</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:32px">
+    <div class="container">
+      <div class="products-layout">
+        <!-- Sidebar فیلترها -->
+        <aside class="filters-sidebar" id="filtersSidebar">
+          <div class="filters-header">
+            <h3>فیلترها</h3>
+            <button class="filters-close" id="filtersClose">✕</button>
+          </div>
+
+          <div class="filter-group">
+            <h4 class="filter-title">دسته‌بندی</h4>
+            <div class="filter-options" id="categoryFilters">
+              <div class="loading-sm"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h4 class="filter-title">برند</h4>
+            <div class="filter-options" id="brandFilters">
+              <div class="loading-sm"><div class="spinner" style="width:20px;height:20px;border-width:2px"></div></div>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <h4 class="filter-title">محدوده قیمت</h4>
+            <div class="price-inputs">
+              <input type="number" id="priceMin" placeholder="از (تومان)" min="0" step="100000">
+              <input type="number" id="priceMax" placeholder="تا (تومان)" min="0" step="100000">
+            </div>
+            <button class="btn btn-outline btn-small btn-full" id="applyPrice" style="margin-top:10px">اعمال</button>
+          </div>
+
+          <div class="filter-group">
+            <h4 class="filter-title">ویژگی‌ها</h4>
+            <label class="filter-checkbox">
+              <input type="checkbox" id="filterDeal">
+              <span>فقط شگفت‌انگیز</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" id="filterFeatured">
+              <span>فقط محصولات ویژه</span>
+            </label>
+            <label class="filter-checkbox">
+              <input type="checkbox" id="filterStock">
+              <span>فقط موجود</span>
+            </label>
+          </div>
+
+          <button class="btn btn-outline btn-full" id="clearFilters" style="margin-top:12px">
+            🗑 پاک کردن فیلترها
+          </button>
+        </aside>
+
+        <!-- محصولات -->
+        <div class="products-main">
+          <!-- Toolbar -->
+          <div class="products-toolbar">
+            <button class="filters-toggle" id="filtersToggle">
+              <span>⚙</span> فیلترها
+            </button>
+            <div class="toolbar-info">
+              <span id="resultCount">در حال بارگذاری...</span>
+            </div>
+            <div class="toolbar-actions">
+              <select id="sortSelect" class="form-select" style="min-width:170px">
+                <option value="newest">جدیدترین</option>
+                <option value="price-asc">ارزان‌ترین</option>
+                <option value="price-desc">گران‌ترین</option>
+                <option value="popular">محبوب‌ترین</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Grid -->
+          <div class="products-grid" id="productsGrid">
+            <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+          </div>
+
+          <!-- Load More -->
+          <div id="loadMoreWrap" style="text-align:center;margin-top:40px;display:none">
+            <button class="btn btn-outline btn-large" id="loadMoreBtn">نمایش بیشتر</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  .products-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  @media (max-width: 992px) {
+    .products-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ==================== Filters Sidebar ==================== */
+  .filters-sidebar {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 22px;
+    position: sticky;
+    top: 100px;
+  }
+
+  .filters-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filters-header h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filters-close {
+    display: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    transition: all var(--t-fast) var(--ease);
+  }
+
+  .filters-close:hover {
+    background: var(--accent-glow);
+    color: var(--accent);
+  }
+
+  .filter-group {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-group:last-of-type { border-bottom: none; }
+
+  .filter-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .filter-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--t-fast) var(--ease);
+    font-size: 0.88rem;
+    color: var(--text-mid);
+  }
+
+  .filter-option:hover {
+    background: var(--accent-glow);
+    color: var(--accent);
+  }
+
+  .filter-option input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .filter-option .count {
+    margin-right: auto;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: var(--bg-3);
+    padding: 1px 8px;
+    border-radius: 10px;
+  }
+
+  .filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    cursor: pointer;
+    font-size: 0.88rem;
+    color: var(--text-mid);
+  }
+
+  .filter-checkbox input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .price-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .price-inputs input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-3);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    border-radius: var(--radius);
+    font-size: 0.82rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color var(--t-fast) var(--ease);
+  }
+
+  .price-inputs input:focus { border-color: var(--accent); }
+
+  .loading-sm {
+    padding: 10px;
+    text-align: center;
+  }
+
+  /* ==================== Toolbar ==================== */
+  .products-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 14px 18px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 20px;
+  }
+
+  .filters-toggle {
+    display: none;
+    padding: 8px 16px;
+    background: var(--bg-3);
+    border: 1.5px solid var(--border);
+    color: var(--text);
+    border-radius: var(--radius);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--t-fast) var(--ease);
+  }
+
+  .filters-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .toolbar-info {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+
+  .toolbar-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  @media (max-width: 992px) {
+    .filters-sidebar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 320px;
+      max-width: 90vw;
+      z-index: 1100;
+      transform: translateX(100%);
+      transition: transform var(--t-mid) var(--ease);
+      border-radius: 0;
+      border-left: 1px solid var(--border);
+      overflow-y: auto;
+      padding-top: 60px;
+    }
+    .filters-sidebar.active { transform: translateX(0); }
+    .filters-close { display: flex; align-items: center; justify-content: center; }
+    .filters-toggle { display: inline-flex; align-items: center; gap: 6px; }
+
+    .products-toolbar {
+      justify-content: space-between;
+    }
+
+    .filters-sidebar::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: -1;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--t-mid) var(--ease);
+    }
+
+    .filters-sidebar.active::before {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/products.js"></script>
+</body>
+</html>

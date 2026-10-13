@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سفارش‌های من – JAVADI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">صفحه اصلی</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="current">سفارش‌های من</span>
+      </div>
+      <h1>📦 سفارش‌های من</h1>
+      <p>تاریخچه تمام سفارشات شما</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div id="ordersContent">
+        <div class="loading"><div class="spinner"></div>در حال بارگذاری...</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  .orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .order-card-user {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--t-mid) var(--ease);
+  }
+
+  .order-card-user:hover {
+    border-color: var(--accent);
+    box-shadow: var(--shadow);
+  }
+
+  .order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    background: var(--bg-3);
+    border-bottom: 1px solid var(--border);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .order-info-block {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .order-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .order-info-item .label {
+    color: var(--text-dim);
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .order-info-item .value {
+    color: var(--text);
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+
+  .order-info-item .value.accent { color: var(--accent); }
+
+  .order-card-body { padding: 20px 24px; }
+
+  .order-line {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px;
+    border-radius: var(--radius);
+    transition: background var(--t-fast) var(--ease);
+  }
+
+  .order-line:hover { background: var(--accent-glow); }
+
+  .order-line-img {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--bg-3);
+    flex-shrink: 0;
+  }
+
+  .order-line-img img { width: 100%; height: 100%; object-fit: cover; }
+
+  .order-line-info { flex: 1; min-width: 0; }
+
+  .order-line-info .name {
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .order-line-info .meta {
+    color: var(--text-dim);
+    font-size: 0.78rem;
+  }
+
+  .order-line-price {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .order-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: var(--bg-3);
+    border-top: 1px solid var(--border);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .order-total-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .order-total-summary .discount-info {
+    color: var(--success);
+    font-size: 0.85rem;
+  }
+
+  .order-total-summary .total {
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+
+  .order-total-summary .total strong {
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  .order-actions-user {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .empty-orders {
+    text-align: center;
+    padding: 80px 20px;
+  }
+
+  .empty-orders-icon {
+    font-size: 5rem;
+    opacity: 0.25;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .empty-orders h2 {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .empty-orders p {
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 640px) {
+    .order-card-header { padding: 14px; }
+    .order-info-block { gap: 16px; width: 100%; }
+    .order-info-item { min-width: 45%; }
+    .order-card-body { padding: 14px; }
+    .order-card-footer { padding: 14px; flex-direction: column; align-items: stretch; }
+    .order-total-summary { justify-content: space-between; }
+    .order-actions-user .btn { flex: 1; justify-content: center; }
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script>
+const statusLabels = {
+  pending:   { text: 'در انتظار پرداخت', cls: 'status-pending' },
+  paid:      { text: 'پرداخت شده',       cls: 'status-paid' },
+  shipped:   { text: 'ارسال شده',        cls: 'status-shipped' },
+  delivered: { text: 'تحویل داده شده',   cls: 'status-delivered' },
+  cancelled: { text: 'لغو شده',          cls: 'status-cancelled' },
+  failed:    { text: 'ناموفق',           cls: 'status-failed' },
+};
+
+async function loadOrders() {
+  const wrap = document.getElementById('ordersContent');
+
+  try {
+    const res = await fetch('/api/orders/my');
+
+    if (res.status === 401) {
+      window.location.href = '/login?next=/my-orders';
+      return;
+    }
+    if (!res.ok) throw new Error();
+
+    const orders = await res.json();
+
+    if (!orders.length) {
+      wrap.innerHTML = `
+        <div class="empty-orders">
+          <span class="empty-orders-icon">📦</span>
+          <h2>هنوز سفارشی ثبت نکرده‌اید</h2>
+          <p>پس از ثبت اولین سفارش، اینجا نمایش داده می‌شود</p>
+          <a href="/products" class="btn btn-warm btn-large">شروع خرید</a>
+        </div>
+      `;
+      return;
+    }
+
+    wrap.innerHTML = `<div class="orders-list">${orders.map(renderOrder).join('')}</div>`;
+    setupReveal();
+  } catch {
+    wrap.innerHTML = '<p class="loading">خطا در بارگذاری سفارشات.</p>';
+  }
+}
+
+function renderOrder(o) {
+  const status = statusLabels[o.status] || { text: o.status, cls: '' };
+  const canPrint = ['paid', 'shipped', 'delivered'].includes(o.status);
+  const createdDate = new Date(o.created_at).toLocaleDateString('fa-IR', {
+    year: 'numeric', month: 'long', day: 'numeric',
+  });
+
+  return `
+    <div class="order-card-user reveal">
+      <div class="order-card-header">
+        <div class="order-info-block">
+          <div class="order-info-item">
+            <span class="label">شماره سفارش</span>
+            <span class="value accent">#${o.id}</span>
+          </div>
+          <div class="order-info-item">
+            <span class="label">تاریخ ثبت</span>
+            <span class="value">${createdDate}</span>
+          </div>
+          <div class="order-info-item">
+            <span class="label">تعداد اقلام</span>
+            <span class="value">${o.items.length.toLocaleString('fa-IR')} محصول</span>
+          </div>
+        </div>
+        <span class="order-status ${status.cls}">${status.text}</span>
+      </div>
+
+      <div class="order-card-body">
+        ${o.items.map(it => {
+          const img = it.product_image || 'https://via.placeholder.com/100/e8e1d5/a5abb7?text=NA';
+          return `
+            <div class="order-line">
+              <div class="order-line-img">
+                <img src="${esc(img)}" alt=""
+                     onerror="this.src='https://via.placeholder.com/100/e8e1d5/a5abb7?text=NA'">
+              </div>
+              <div class="order-line-info">
+                <div class="name">${esc(it.product_name)}</div>
+                <div class="meta">${fmtPrice(it.unit_price)} × ${it.quantity.toLocaleString('fa-IR')}</div>
+              </div>
+              <div class="order-line-price">${fmtPrice(it.subtotal)}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="order-card-footer">
+        <div class="order-total-summary">
+          ${o.discount_amount > 0 ? `
+            <span class="discount-info">
+              تخفیف (${esc(o.coupon_code || '')}): −${fmtPrice(o.discount_amount)}
+            </span>
+          ` : ''}
+          <span class="total">
+            مبلغ کل: <strong>${fmtPrice(o.total_amount)}</strong>
+          </span>
+        </div>
+        <div class="order-actions-user">
+          ${canPrint ? `
+            <a href="/api/orders/${o.id}/invoice" target="_blank" class="btn btn-outline btn-small">
+              🖨 فاکتور PDF
+            </a>
+          ` : ''}
+          ${o.status === 'pending' ? `
+            <span class="btn btn-outline btn-small" style="cursor:default;color:var(--warning)">
+              ⏳ در انتظار پرداخت
+            </span>
+          ` : ''}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+async function initMyOrders() {
+  await new Promise(resolve => {
+    const check = setInterval(() => {
+      if (window.JV.settings && window.JV.settings.site_name) {
+        clearInterval(check); resolve();
+      }
+    }, 50);
+  });
+  await loadOrders();
+}
+
+window.addEventListener('DOMContentLoaded', initMyOrders);
+</script>
+</body>
+</html>

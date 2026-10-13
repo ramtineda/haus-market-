@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تماس با ما – JAVADI</title>
+<meta name="description" content="با فروشگاه JAVADI در تماس باشید">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <section class="page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/">صفحه اصلی</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="current">تماس با ما</span>
+      </div>
+      <h1>📞 تماس با ما</h1>
+      <p>همیشه خوشحال می‌شویم از شما بشنویم</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:40px">
+    <div class="container">
+      <div class="contact-layout">
+        <!-- Form -->
+        <div class="contact-form-box reveal">
+          <h2 class="contact-form-title">📩 پیام خود را بفرستید</h2>
+          <p class="contact-form-sub">پاسخ در کمترین زمان ممکن</p>
+
+          <form id="contactForm" autocomplete="on">
+            <div class="contact-form-grid">
+              <div class="form-group">
+                <label class="form-label" for="name">نام و نام خانوادگی <span class="required">*</span></label>
+                <input type="text" class="form-input" id="name" name="name" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">ایمیل</label>
+                <input type="email" class="form-input" id="email" name="email">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="phone">تلفن همراه</label>
+                <input type="tel" class="form-input" id="phone" name="phone">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="subject">موضوع</label>
+                <input type="text" class="form-input" id="subject" name="subject">
+              </div>
+
+              <div class="form-group full">
+                <label class="form-label" for="message">متن پیام <span class="required">*</span></label>
+                <textarea class="form-textarea" id="message" name="message" rows="6"
+                          placeholder="پیام خود را اینجا بنویسید..." required></textarea>
+              </div>
+            </div>
+
+            <p class="form-error" id="contactError"></p>
+
+            <button type="submit" class="btn btn-warm btn-large" id="contactSubmitBtn" style="width:100%;margin-top:16px">
+              📤 ارسال پیام
+            </button>
+          </form>
+        </div>
+
+        <!-- Info -->
+        <aside class="contact-info-box reveal reveal-delay-1">
+          <h2 class="contact-info-title">📋 اطلاعات تماس</h2>
+          <p class="contact-info-desc">از طریق راه‌های زیر هم می‌توانید با ما در ارتباط باشید</p>
+
+          <div class="contact-info-list" id="contactInfoList">
+            <div style="text-align:center;padding:30px 0">
+              <div class="spinner"></div>
+            </div>
+          </div>
+
+          <div class="contact-socials" id="contactSocials"></div>
+
+          <div class="contact-hours-box">
+            <div class="contact-hours-icon">🕐</div>
+            <div>
+              <strong>ساعت کاری</strong>
+              <p id="contactHours">—</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Map Placeholder -->
+      <div class="contact-map-wrap reveal">
+        <div class="contact-map">
+          <div class="contact-map-placeholder">
+            <div class="contact-map-icon">📍</div>
+            <p>آدرس فروشگاه روی نقشه</p>
+            <span id="mapAddress">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 28px;
+    align-items: start;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 900px) {
+    .contact-layout { grid-template-columns: 1fr; }
+  }
+
+  /* ==================== Form ==================== */
+  .contact-form-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 640px) {
+    .contact-form-box { padding: 24px 20px; }
+  }
+
+  .contact-form-title {
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .contact-form-sub {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    margin-bottom: 28px;
+  }
+
+  .contact-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+
+  .contact-form-grid .full { grid-column: 1 / -1; }
+
+  @media (max-width: 640px) {
+    .contact-form-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ==================== Info ==================== */
+  .contact-info-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 36px 30px;
+    position: sticky;
+    top: 100px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 900px) {
+    .contact-info-box { position: static; padding: 28px 22px; }
+  }
+
+  .contact-info-title {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .contact-info-desc {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    margin-bottom: 26px;
+    line-height: 1.7;
+  }
+
+  .contact-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 26px;
+  }
+
+  .contact-info-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .contact-info-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    background: var(--gradient-gold);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    box-shadow: 0 4px 12px rgba(201, 150, 62, 0.25);
+  }
+
+  .contact-info-text {
+    flex: 1;
+    padding-top: 4px;
+  }
+
+  .contact-info-text .label {
+    color: var(--text-dim);
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .contact-info-text .value {
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    font-weight: 500;
+  }
+
+  .contact-info-text .value a {
+    color: inherit;
+    transition: color var(--t-fast) var(--ease);
+  }
+
+  .contact-info-text .value a:hover { color: var(--accent); }
+
+  /* Socials */
+  .contact-socials {
+    display: flex;
+    gap: 10px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .contact-socials a {
+    width: 42px;
+    height: 42px;
+    border: 1.5px solid var(--border-2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-mid);
+    transition: all var(--t-fast) var(--ease);
+    font-size: 1rem;
+  }
+
+  .contact-socials a:hover {
+    background: var(--gradient-gold);
+    color: #fff;
+    border-color: transparent;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(201, 150, 62, 0.3);
+  }
+
+  /* Hours */
+  .contact-hours-box {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    background: var(--bg-3);
+    padding: 16px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+  }
+
+  .contact-hours-icon {
+    font-size: 1.5rem;
+    color: var(--accent);
+  }
+
+  .contact-hours-box strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .contact-hours-box p {
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  /* ==================== Map ==================== */
+  .contact-map-wrap { margin-top: 40px; }
+
+  .contact-map {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    height: 380px;
+    background: var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image:
+      linear-gradient(45deg, var(--bg-3) 25%, transparent 25%),
+      linear-gradient(-45deg, var(--bg-3) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, var(--bg-3) 75%),
+      linear-gradient(-45deg, transparent 75%, var(--bg-3) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  }
+
+  .contact-map-placeholder {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 40px;
+    background: rgba(255,255,255,0.9);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(6px);
+  }
+
+  [data-theme="dark"] .contact-map-placeholder {
+    background: rgba(36, 41, 56, 0.95);
+  }
+
+  .contact-map-icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+
+  .contact-map-placeholder p {
+    color: var(--text-mid);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .contact-map-placeholder span {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script>
+async function initContact() {
+  await new Promise(resolve => {
+    const check = setInterval(() => {
+      if (window.JV.settings && window.JV.settings.site_name) {
+        clearInterval(check); resolve();
+      }
+    }, 50);
+  });
+
+  renderContactInfo();
+  setupForm();
+}
+
+function renderContactInfo() {
+  const s = window.JV.settings;
+  const list = document.getElementById('contactInfoList');
+  const socials = document.getElementById('contactSocials');
+
+  const items = [];
+  if (s.contact_phone) {
+    items.push({
+      icon: '📞',
+      label: 'تلفن',
+      value: `<a href="tel:${esc(s.contact_phone)}">${esc(s.contact_phone)}</a>`
+    });
+  }
+  if (s.contact_email) {
+    items.push({
+      icon: '✉',
+      label: 'ایمیل',
+      value: `<a href="mailto:${esc(s.contact_email)}">${esc(s.contact_email)}</a>`
+    });
+  }
+  if (s.contact_address) {
+    items.push({ icon: '📍', label: 'آدرس', value: esc(s.contact_address) });
+    document.getElementById('mapAddress').textContent = s.contact_address;
+  }
+  if (s.contact_hours) {
+    items.push({ icon: '🕐', label: 'ساعت کاری', value: esc(s.contact_hours) });
+    document.getElementById('contactHours').textContent = s.contact_hours;
+  }
+
+  if (items.length === 0) {
+    list.innerHTML = '<p style="color:var(--text-dim);text-align:center">اطلاعات تماس تنظیم نشده است.</p>';
+  } else {
+    list.innerHTML = items.map(it => `
+      <div class="contact-info-item">
+        <div class="contact-info-icon">${it.icon}</div>
+        <div class="contact-info-text">
+          <div class="label">${it.label}</div>
+          <div class="value">${it.value}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // شبکه‌های اجتماعی
+  const socialLinks = [];
+  if (s.social_instagram) socialLinks.push({ url: s.social_instagram, icon: '📷', title: 'اینستاگرام' });
+  if (s.social_telegram) socialLinks.push({ url: s.social_telegram, icon: '✈', title: 'تلگرام' });
+  if (s.social_whatsapp) socialLinks.push({ url: s.social_whatsapp, icon: '💬', title: 'واتساپ' });
+  if (s.social_youtube) socialLinks.push({ url: s.social_youtube, icon: '▶', title: 'یوتیوب' });
+
+  if (socialLinks.length) {
+    socials.innerHTML = socialLinks.map(l =>
+      `<a href="${esc(l.url)}" target="_blank" title="${l.title}">${l.icon}</a>`
+    ).join('');
+  }
+}
+
+function setupForm() {
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('contactSubmitBtn');
+  const errEl = document.getElementById('contactError');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    errEl.textContent = '';
+
+    const name = document.getElementById('name').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!name || !message) {
+      errEl.textContent = 'نام و متن پیام الزامی است';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner" style="width:18px;height:18px;border-width:2px;display:inline-block;vertical-align:middle"></span> در حال ارسال...';
+
+    const payload = {
+      name,
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      subject: document.getElementById('subject').value.trim(),
+      message,
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'خطا در ارسال');
+
+      showToast('✅ پیام شما با موفقیت ارسال شد', 'success');
+      celebrate();
+      form.reset();
+      btn.disabled = false;
+      btn.innerHTML = '📤 ارسال پیام';
+    } catch (err) {
+      errEl.textContent = err.message;
+      btn.disabled = false;
+      btn.innerHTML = '📤 ارسال پیام';
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', initContact);
+</script>
+</body>
+</html>

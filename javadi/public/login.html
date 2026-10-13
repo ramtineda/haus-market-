@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ورود به حساب – JAVADI</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <section class="auth-section">
+    <div class="auth-box">
+      <div class="auth-header">
+        <div class="auth-icon">🔑</div>
+        <h1 class="auth-title">ورود به حساب</h1>
+        <p class="auth-subtitle">خوش آمدید! لطفاً وارد شوید</p>
+      </div>
+
+      <form id="loginForm" autocomplete="on">
+        <div class="form-group">
+          <label class="form-label" for="email">ایمیل <span class="required">*</span></label>
+          <input type="email" class="form-input" id="email" name="email"
+                 placeholder="example@email.com" required autofocus>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="password">رمز عبور <span class="required">*</span></label>
+          <div class="password-wrap">
+            <input type="password" class="form-input" id="password" name="password"
+                   placeholder="حداقل ۶ کاراکتر" required minlength="6">
+            <button type="button" class="password-toggle" onclick="togglePassword('password', this)">👁</button>
+          </div>
+          <div style="text-align:left;margin-top:10px">
+            <a href="/forgot-password" class="forgot-link">
+              🔐 رمز عبور را فراموش کرده‌اید؟
+            </a>
+          </div>
+        </div>
+
+        <p class="form-error" id="loginError"></p>
+
+        <button type="submit" class="btn btn-warm btn-full" id="submitBtn" style="padding:15px">
+          🔑 ورود به حساب
+        </button>
+
+        <div class="auth-divider">
+          <span>حساب کاربری ندارید؟</span>
+        </div>
+
+        <a href="/register" class="btn btn-outline btn-full" style="padding:14px">
+          ثبت‌نام کنید
+        </a>
+      </form>
+
+      <div class="auth-demo">
+        <div class="auth-demo-title">🔑 حساب آزمایشی</div>
+        <div class="auth-demo-creds">
+          ایمیل: <strong>demo@example.com</strong><br>
+          رمز عبور: <strong>demo1234</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  .auth-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 130px 20px 80px;
+    background:
+      radial-gradient(circle at 20% 20%, var(--accent-glow), transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(255, 140, 66, 0.06), transparent 50%),
+      var(--bg);
+  }
+
+  .auth-box {
+    width: 100%;
+    max-width: 460px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 48px 40px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .auth-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-warm);
+  }
+
+  @media (max-width: 480px) {
+    .auth-box { padding: 32px 22px; }
+  }
+
+  .auth-header { text-align: center; margin-bottom: 32px; }
+
+  .auth-icon {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--accent-glow);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.85rem;
+    border: 2px solid rgba(201, 150, 62, 0.2);
+    position: relative;
+  }
+
+  .auth-icon::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px dashed var(--accent);
+    opacity: 0.25;
+    animation: rotateSlow 20s linear infinite;
+  }
+
+  @keyframes rotateSlow {
+    to { transform: rotate(360deg); }
+  }
+
+  .auth-title {
+    font-size: 1.55rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .auth-subtitle {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+
+  .password-wrap { position: relative; }
+  .password-wrap .form-input { padding-left: 48px; }
+
+  .password-toggle {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    font-size: 1rem;
+    padding: 6px;
+    border-radius: 4px;
+    transition: color var(--t-fast) var(--ease);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .password-toggle:hover { color: var(--accent); }
+
+  /* ==================== لینک فراموشی رمز ==================== */
+  .forgot-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--accent);
+    font-size: 0.83rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 20px;
+    transition: all var(--t-fast) var(--ease);
+    background: transparent;
+  }
+
+  .forgot-link:hover {
+    background: var(--accent-glow);
+    color: var(--accent-dark);
+    transform: translateX(-3px);
+  }
+
+  .auth-divider {
+    position: relative;
+    text-align: center;
+    margin: 24px 0 16px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  .auth-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: var(--border);
+    z-index: 0;
+  }
+
+  .auth-divider span {
+    position: relative;
+    z-index: 1;
+    background: var(--bg-card);
+    padding: 0 12px;
+  }
+
+  .auth-demo {
+    margin-top: 28px;
+    padding: 16px;
+    background: var(--accent-glow);
+    border: 1px dashed rgba(201, 150, 62, 0.35);
+    border-radius: var(--radius);
+    text-align: center;
+    font-size: 0.85rem;
+  }
+
+  .auth-demo-title {
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+  .auth-demo-creds {
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  .auth-demo-creds strong {
+    color: var(--text);
+    font-weight: 600;
+    direction: ltr;
+    display: inline-block;
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script>
+function togglePassword(id, btn) {
+  const input = document.getElementById(id);
+  const type = input.type === 'password' ? 'text' : 'password';
+  input.type = type;
+  btn.textContent = type === 'password' ? '👁' : '🙈';
+}
+
+async function initLogin() {
+  await new Promise(resolve => {
+    const check = setInterval(() => {
+      if (window.JV.settings && window.JV.settings.site_name) {
+        clearInterval(check); resolve();
+      }
+    }, 50);
+  });
+
+  // اگه کاربر لاگین کرده، ریدایرکت
+  try {
+    const res = await fetch('/api/auth/me');
+    const data = await res.json();
+    if (data.loggedIn) {
+      const next = new URLSearchParams(window.location.search).get('next') || '/';
+      window.location.href = next;
+      return;
+    }
+  } catch {}
+
+  document.getElementById('loginForm').addEventListener('submit', async e => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const errEl = document.getElementById('loginError');
+    errEl.textContent = '';
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    btn.disabled = true;
+    btn.textContent = 'در حال ورود...';
+
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'خطا در ورود');
+
+      showToast(`🎉 خوش آمدید ${data.full_name}!`, 'success');
+      const next = new URLSearchParams(window.location.search).get('next') || '/';
+      setTimeout(() => window.location.href = next, 600);
+    } catch (err) {
+      errEl.textContent = err.message;
+      btn.disabled = false;
+      btn.textContent = '🔑 ورود به حساب';
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', initLogin);
+</script>
+</body>
+</html>

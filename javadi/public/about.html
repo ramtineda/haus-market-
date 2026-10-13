@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>درباره ما – JAVADI</title>
+<meta name="description" content="درباره فروشگاه JAVADI – لوازم خانگی لوکس">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-logo">JAVADI</div>
+  <div class="preloader-bar"></div>
+</div>
+
+<div id="headerSlot"></div>
+
+<main>
+  <!-- Hero -->
+  <section class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="container">
+      <div class="about-hero-content">
+        <span class="section-eyebrow">درباره JAVADI</span>
+        <h1 class="about-hero-title" id="aboutTitle">درباره ما</h1>
+        <p class="about-hero-desc" id="aboutTagline">
+          تجربه‌ای متفاوت از خرید لوازم خانگی
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="section">
+    <div class="container">
+      <div class="about-story">
+        <div class="about-story-image">
+          <img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=1200" alt="JAVADI" loading="lazy">
+        </div>
+        <div class="about-story-content">
+          <span class="section-eyebrow">داستان ما</span>
+          <h2 class="section-title" style="text-align:right">مسیری که پیمودیم</h2>
+          <p class="about-story-text" id="aboutContent">
+            در حال بارگذاری...
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="section" style="padding-top:0">
+    <div class="container">
+      <div class="about-stats">
+        <div class="about-stat reveal">
+          <div class="about-stat-num" data-count="15">۰</div>
+          <div class="about-stat-label">سال تجربه</div>
+        </div>
+        <div class="about-stat reveal reveal-delay-1">
+          <div class="about-stat-num" data-count="50000">۰</div>
+          <div class="about-stat-label">مشتری راضی</div>
+        </div>
+        <div class="about-stat reveal reveal-delay-2">
+          <div class="about-stat-num" data-count="2000">۰</div>
+          <div class="about-stat-label">محصول متنوع</div>
+        </div>
+        <div class="about-stat reveal reveal-delay-3">
+          <div class="about-stat-num" data-count="50">۰</div>
+          <div class="about-stat-label">برند معتبر</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header" style="justify-content:center;text-align:center">
+        <div class="section-header-left" style="text-align:center">
+          <span class="section-eyebrow">ارزش‌های ما</span>
+          <h2 class="section-title">چرا JAVADI؟</h2>
+          <p class="section-subtitle">چهار اصل اساسی که همیشه به آن‌ها پایبندیم</p>
+        </div>
+      </div>
+
+      <div class="about-values">
+        <div class="about-value-card reveal">
+          <div class="about-value-icon">✦</div>
+          <h3>کیفیت بی‌نظیر</h3>
+          <p>همکاری مستقیم با برندهای معتبر جهانی و تضمین اصالت تمام محصولات ارائه شده</p>
+        </div>
+
+        <div class="about-value-card reveal reveal-delay-1">
+          <div class="about-value-icon">♦</div>
+          <h3>قیمت رقابتی</h3>
+          <p>بدون واسطه، مستقیم از تأمین‌کننده اصلی، با بهترین قیمت بازار</p>
+        </div>
+
+        <div class="about-value-card reveal reveal-delay-2">
+          <div class="about-value-icon">◈</div>
+          <h3>پشتیبانی حرفه‌ای</h3>
+          <p>تیم پشتیبانی ما آماده پاسخگویی به سوالات شما در کمترین زمان ممکن است</p>
+        </div>
+
+        <div class="about-value-card reveal reveal-delay-3">
+          <div class="about-value-icon">⬢</div>
+          <h3>ارسال سریع</h3>
+          <p>ارسال به سراسر کشور با بسته‌بندی ایمن و بیمه‌شده در کوتاه‌ترین زمان</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="container" style="padding-bottom:60px">
+    <div class="about-cta reveal">
+      <h2>آماده شروع خرید هستید؟</h2>
+      <p>همین حالا از میان هزاران محصول متنوع انتخاب کنید</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1">
+        <a href="/products" class="btn btn-warm btn-large">
+          مشاهده محصولات
+          <span>←</span>
+        </a>
+        <a href="/contact" class="btn btn-outline btn-large">
+          تماس با ما
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="footerSlot"></div>
+
+<style>
+  /* ==================== Hero ==================== */
+  .about-hero {
+    position: relative;
+    padding: 160px 0 80px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .about-hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, var(--accent-glow), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(255, 140, 66, 0.1), transparent 50%);
+    pointer-events: none;
+  }
+
+  .about-hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .about-hero-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 200;
+    color: var(--text);
+    margin: 12px 0 16px;
+    letter-spacing: -1px;
+  }
+
+  .about-hero-desc {
+    color: var(--text-mid);
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  /* ==================== Story ==================== */
+  .about-story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  @media (max-width: 900px) {
+    .about-story { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .about-story-image {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    aspect-ratio: 4/3;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .about-story-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about-story-content .section-title { margin-bottom: 20px; }
+
+  .about-story-text {
+    color: var(--text-mid);
+    font-size: 1rem;
+    line-height: 2.1;
+    white-space: pre-line;
+  }
+
+  /* ==================== Stats ==================== */
+  .about-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (max-width: 768px) {
+    .about-stats { grid-template-columns: repeat(2, 1fr); padding: 24px; gap: 20px; }
+  }
+
+  .about-stat { text-align: center; }
+
+  .about-stat-num {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+  }
+
+  .about-stat-label {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+
+  /* ==================== Values ==================== */
+  .about-values {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+  }
+
+  .about-value-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px 28px;
+    text-align: center;
+    transition: all var(--t-mid) var(--ease);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-value-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-gold);
+    transform: scaleX(0);
+    transition: transform var(--t-mid) var(--ease);
+  }
+
+  .about-value-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .about-value-card:hover::before { transform: scaleX(1); }
+
+  .about-value-icon {
+    font-size: 2.5rem;
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+
+  .about-value-card h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .about-value-card p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.9;
+  }
+
+  /* ==================== CTA ==================== */
+  .about-cta {
+    padding: 60px 40px;
+    background: linear-gradient(135deg, var(--bg-3), var(--bg-card));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, var(--accent-glow), transparent 70%);
+    pointer-events: none;
+  }
+
+  .about-cta h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .about-cta p {
+    color: var(--text-dim);
+    margin-bottom: 28px;
+    position: relative;
+  }
+
+  @media (max-width: 640px) {
+    .about-cta { padding: 40px 24px; }
+  }
+</style>
+
+<script src="/js/app.js"></script>
+<script>
+async function initAbout() {
+  await new Promise(resolve => {
+    const check = setInterval(() => {
+      if (window.JV.settings && window.JV.settings.site_name) {
+        clearInterval(check); resolve();
+      }
+    }, 50);
+  });
+
+  const s = window.JV.settings;
+
+  if (s.about_title) {
+    document.getElementById('aboutTitle').textContent = s.about_title;
+    document.title = s.about_title + ' – JAVADI';
+  }
+  if (s.about_content) {
+    document.getElementById('aboutContent').textContent = s.about_content;
+  }
+  if (s.site_description) {
+    document.getElementById('aboutTagline').textContent = s.site_description;
+  }
+
+  // شمارنده
+  const counters = document.querySelectorAll('[data-count]');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target, parseInt(e.target.dataset.count));
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => io.observe(c));
+}
+
+function animateCounter(el, target) {
+  const duration = 2000;
+  const start = performance.now();
+  const format = (n) => n.toLocaleString('fa-IR');
+
+  function tick(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const value = Math.floor(eased * target);
+    el.textContent = format(value) + (progress === 1 ? '+' : '');
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+window.addEventListener('DOMContentLoaded', initAbout);
+</script>
+</body>
+</html>

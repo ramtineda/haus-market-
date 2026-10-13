@@ -1,0 +1,407 @@
+/* ============================================================
+   JAVADI 2.0 – انیمیشن‌ها و افکت‌های ویژه
+   ============================================================ */
+
+/* ==================== Reveal on Scroll ==================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-fade { opacity: 0; transform: none; transition: opacity 0.8s var(--ease); }
+.reveal-fade.visible { opacity: 1; }
+
+.reveal-left { opacity: 0; transform: translateX(-40px); transition: all 0.8s var(--ease); }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-right { opacity: 0; transform: translateX(40px); transition: all 0.8s var(--ease); }
+.reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+.reveal-zoom { opacity: 0; transform: scale(0.9); transition: all 0.8s var(--ease); }
+.reveal-zoom.visible { opacity: 1; transform: scale(1); }
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ==================== Fade In Up ==================== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeUp {
+  animation: fadeInUp 0.5s var(--ease);
+}
+
+/* ==================== Fade In ==================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade { animation: fadeIn 0.4s var(--ease); }
+
+/* ==================== Bounce ==================== */
+@keyframes bounceIn {
+  0% { opacity: 0; transform: scale(0.3); }
+  50% { opacity: 1; transform: scale(1.05); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.animate-bounce { animation: bounceIn 0.6s var(--ease); }
+
+/* ==================== Shake ==================== */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+.animate-shake { animation: shake 0.4s var(--ease); }
+
+/* ==================== Pulse ==================== */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-pulse { animation: pulse 1.5s ease infinite; }
+
+/* ==================== Glow ==================== */
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
+  50% { box-shadow: 0 0 40px var(--accent-glow); }
+}
+
+.animate-glow { animation: glow 2s ease infinite; }
+
+/* ==================== Spin ==================== */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin { animation: spin 1s linear infinite; }
+
+/* ==================== Float ==================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float { animation: float 3s ease infinite; }
+
+/* ==================== Rotate Slow ==================== */
+@keyframes rotateSlow {
+  to { transform: rotate(360deg); }
+}
+
+.animate-rotate-slow { animation: rotateSlow 20s linear infinite; }
+
+/* ==================== Slide In (Right) ==================== */
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-slideInRight { animation: slideInRight 0.4s var(--ease); }
+
+/* ==================== Slide In (Left) ==================== */
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.animate-slideInLeft { animation: slideInLeft 0.4s var(--ease); }
+
+/* ==================== Scale In ==================== */
+@keyframes scaleIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+.animate-scaleIn { animation: scaleIn 0.4s var(--ease-bounce); }
+
+/* ==================== Heart Beat ==================== */
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.3); }
+  70% { transform: scale(1); }
+}
+
+.animate-heartBeat { animation: heartBeat 1.3s ease infinite; }
+
+/* ==================== Gradient Move ==================== */
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientMove 3s ease infinite;
+}
+
+/* ==================== Typewriter ==================== */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-left: 3px solid var(--accent);
+  animation: typewriter 2s steps(30) 1s forwards, blink 0.75s step-end infinite;
+}
+
+/* ==================== Ripple Effect ==================== */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* ==================== Hover Effects ==================== */
+.hover-lift {
+  transition: transform var(--t-mid) var(--ease), box-shadow var(--t-mid) var(--ease);
+}
+.hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hover-scale {
+  transition: transform var(--t-mid) var(--ease);
+}
+.hover-scale:hover { transform: scale(1.05); }
+
+.hover-glow {
+  transition: box-shadow var(--t-mid) var(--ease);
+}
+.hover-glow:hover {
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.hover-tilt {
+  transition: transform var(--t-mid) var(--ease);
+}
+.hover-tilt:hover {
+  transform: perspective(500px) rotateX(5deg) rotateY(-5deg);
+}
+
+/* ==================== Skeleton Loading ==================== */
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-3) 25%, var(--bg-2) 50%, var(--bg-3) 75%);
+  background-size: 200% 100%;
+  animation: skeleton 1.5s ease infinite;
+  border-radius: var(--radius);
+}
+
+@keyframes skeleton {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ==================== Parallax ==================== */
+.parallax {
+  transition: transform 0.3s var(--ease);
+  will-change: transform;
+}
+
+/* ==================== Flip Card ==================== */
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s var(--ease);
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ==================== Confetti Animation ==================== */
+@keyframes confetti {
+  0% { transform: translateY(0) rotateZ(0); opacity: 1; }
+  100% { transform: translateY(100vh) rotateZ(720deg); opacity: 0; }
+}
+
+.confetti-piece {
+  position: fixed;
+  top: -20px;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  animation: confetti 3s linear forwards;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+/* ==================== Notification Badge Pulse ==================== */
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.badge-pulse {
+  animation: badgePulse 1s ease infinite;
+}
+
+/* ==================== Smooth Scroll ==================== */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* ==================== Custom Cursor ==================== */
+@media (hover: hover) {
+  .cursor-glow {
+    cursor: pointer;
+    position: relative;
+  }
+
+  .cursor-glow::after {
+    content: '';
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s, opacity 0.15s;
+    opacity: 0;
+    z-index: 9999;
+  }
+
+  .cursor-glow:hover::after {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}
+
+/* ==================== Marquee Pause on Hover ==================== */
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ==================== Stagger Children ==================== */
+.stagger > * {
+  animation: fadeInUp 0.5s var(--ease) both;
+}
+
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger > *:nth-child(6) { animation-delay: 0.3s; }
+.stagger > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger > *:nth-child(8) { animation-delay: 0.4s; }
+.stagger > *:nth-child(9) { animation-delay: 0.45s; }
+.stagger > *:nth-child(10) { animation-delay: 0.5s; }
+.stagger > *:nth-child(11) { animation-delay: 0.55s; }
+.stagger > *:nth-child(12) { animation-delay: 0.6s; }
+
+/* ==================== Ripple Waves (Hero) ==================== */
+@keyframes ripple-wave {
+  0% { transform: scale(0.5); opacity: 0.6; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+.ripple-wave {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  animation: ripple-wave 3s ease-out infinite;
+}
+
+/* ==================== Theme Transition ==================== */
+* {
+  transition-property: background-color, border-color, color;
+  transition-duration: 0.3s;
+  transition-timing-function: var(--ease);
+}
+
+/* جلوگیری از transition روی transform */
+.product-card,
+.category-card,
+.btn,
+.icon-btn {
+  transition-property: transform, box-shadow, background-color, border-color, color;
+}
+
+/* ==================== Reduced Motion ==================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==================== Print ==================== */
+@media print {
+  .header,
+  .footer,
+  .bottom-nav,
+  .hero-controls,
+  .toast-container,
+  .btn {
+    display: none !important;
+  }
+  body { background: #fff; color: #000; }
+}
